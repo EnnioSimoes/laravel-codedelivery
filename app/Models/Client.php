@@ -6,20 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 use Prettus\Repository\Contracts\Transformable;
 use Prettus\Repository\Traits\TransformableTrait;
 
-class Product extends Model implements Transformable
+class Client extends Model implements Transformable
 {
     use TransformableTrait;
 
     protected $fillable = [
-        'category_id',
-        'name',
-        'description',
-        'price'
+        'user_id',
+        'phone',
+        'address',
+        'city',
+        'state',
+        'zipcode',
     ];
 
-    public function category()
+    public function user()
     {
-        return $this->belongsTo(Category::class);
+        return $this->hasOne(User::class);
     }
-
 }
