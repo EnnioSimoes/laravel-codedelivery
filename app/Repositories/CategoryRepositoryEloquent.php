@@ -13,6 +13,11 @@ use CodeDelivery\Models\Category;
  */
 class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
 {
+    public function lists()
+    {
+        return $this->model->lists('name', 'id');
+    }
+
     /**
      * Specify Model class name
      *
