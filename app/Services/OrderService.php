@@ -39,7 +39,8 @@ class OrderService
 
     public function create(array $data)
     {
-        DB::beginTransaction();
+        \DB::beginTransaction();
+
 
         try {
             $data['status'] = 0;

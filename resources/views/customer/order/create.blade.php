@@ -6,7 +6,7 @@
 
         @include('errors._check')
         <br />
-        {!! Form::open(['class'=>'form']) !!}
+        {!! Form::open(['route' => 'customer.order.store', 'class'=>'form']) !!}
         <div class="form-group">
             <label>Total: </label>
             <p id="total"></p>
