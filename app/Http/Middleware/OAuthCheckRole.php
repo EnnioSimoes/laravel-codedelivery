@@ -9,6 +9,8 @@ use LucaDegasperi\OAuth2Server\Facades\Authorizer;
 class OAuthCheckRole
 {
 
+    private $userRepository;
+
     public function __construct(UserRepository $userRepository)
     {
         $this->userRepository = $userRepository;
@@ -23,7 +25,7 @@ class OAuthCheckRole
     public function handle($request, Closure $next, $role)
     {
         $id = Authorizer::getResourceOwnerId();
-        $user = $this->userRepository->fine($id);
+        $user = $this->userRepository->find($id);
 
         if($user->role != $role) {
             abort(403, 'Access Forbiddem');
