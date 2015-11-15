@@ -3,6 +3,7 @@
 namespace CodeDelivery\Services;
 
 
+use CodeDelivery\Models\Order;
 use CodeDelivery\Repositories\CupomRepository;
 use CodeDelivery\Repositories\OrderRepository;
 use CodeDelivery\Repositories\ProductRepository;
@@ -40,8 +41,6 @@ class OrderService
     public function create(array $data)
     {
         \DB::beginTransaction();
-
-
         try {
             $data['status'] = 0;
             if(isset($data['cupom_code'])) {
@@ -72,13 +71,23 @@ class OrderService
 
             $order->save();
             \DB::commit();
+            return $order;
 
         } catch(\Exception $e) {
             \DB::rollback();
             throw $e;
         }
+    }
 
-
+    public function updateStatus($id, $idDeliveryman, $status)
+    {
+        $order = $this->orderRepository->getByIdAndDelirevyman($id, $idDeliveryman);
+        if($order instanceof Order) {
+            $order->status = $status;
+            $order->save();
+            return $order;
+        }
+        return false;
     }
 
 }
