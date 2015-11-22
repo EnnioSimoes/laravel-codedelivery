@@ -45,4 +45,10 @@ class OrderRepositoryEloquent extends BaseRepository implements OrderRepository
     {
         $this->pushCriteria(app(RequestCriteria::class));
     }
+
+    public function presenter()
+    {
+//        return "Prettus\\Repository\\Presenter\\ModelFractalPresenter";
+        return \CodeDelivery\Presenters\OrderPresenter::class;
+    }
 }

@@ -41,13 +41,12 @@ class ClientCheckoutController extends Controller
         return $orders;
     }
 
-    public function store(Request $request)
+    public function store(Requests\CheckoutRequest $request)
     {
         $data = $request->all();
         $id = Authorizer::getResourceOwnerId();
         $clientId = $this->userRepository->find($id)->client->id;
         $data['client_id'] = $clientId;
-        $this->service->create($data);
         $o = $this->service->create($data);
         $o = $this->repository->with('items')->find($o->id);
         return $o;
@@ -55,10 +54,11 @@ class ClientCheckoutController extends Controller
 
     public function show($id)
     {
+//        $o = $this->repository->skipPresenter()->with(['client', 'items', 'cupom'])->find($id);
         $o = $this->repository->with(['client', 'items', 'cupom'])->find($id);
-        $o->items->each(function($item){
-            $item->product;
-        });
+//        $o->items->each(function($item){
+//            $item->product;
+//        });
         return $o;
     }
 
