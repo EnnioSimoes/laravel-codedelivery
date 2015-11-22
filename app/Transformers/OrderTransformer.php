@@ -13,7 +13,7 @@ class OrderTransformer extends TransformerAbstract
 {
 
 //    protected $defaultIncludes = ['cupom', 'item'];
-    protected $availableIncludes = ['cupom', 'items'];
+    protected $availableIncludes = ['cupom', 'items', 'client'];
     /**
      * Transform the \Order entity
      * @param \Order $model
@@ -30,6 +30,11 @@ class OrderTransformer extends TransformerAbstract
             'created_at' => $model->created_at,
             'updated_at' => $model->updated_at
         ];
+    }
+
+    public function includeClient(Order $model)
+    {
+        return $this->item($model->client, new ClientTransformer());
     }
 
     public function includeCupom(Order $model)
